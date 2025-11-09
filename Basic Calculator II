@@ -1,0 +1,47 @@
+class Solution {
+    public int calculate(String s) {
+        s = s.trim();
+        s = s.replaceAll("\\s+", "");
+        Stack<Integer> st = new Stack<>();
+        int r = 0;
+        char op='+';
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (Character.isDigit(ch)) {
+                r = r * 10 + (ch - '0');
+            } else {
+                if(op=='+'){
+                    st.push(r);
+                    op=ch;
+                    r=0;
+                }
+                else if(op=='-'){
+                    st.push(-1*r);
+                    op=ch;
+                    r=0;
+                }
+                else if(op=='*'){
+                    st.push(st.pop()*r);
+                    op=ch;
+                    r=0;
+
+                }
+                else{
+                    st.push(st.pop()/r);
+                    op=ch;
+                    r=0;
+
+                }
+            }
+        }
+        if (op == '+') st.push(r);
+        else if (op == '-') st.push(-r);
+        else if (op == '*') st.push(st.pop() * r);
+        else if (op == '/') st.push(st.pop() / r);
+        int ans=0;
+        while(!st.isEmpty()){
+            ans+=st.pop();
+        }
+        return ans;
+    }
+}
