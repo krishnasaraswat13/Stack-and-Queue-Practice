@@ -1,0 +1,19 @@
+class Solution {
+    public static ArrayList<Integer> prevSmaller(int[] arr) {
+        // code here
+
+        int n=arr.length;
+        Stack<Integer> st=new Stack<>();
+        ArrayList<Integer> nse=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && arr[st.peek()]>=arr[i]){
+                st.pop();
+            }
+            nse.add(st.isEmpty()?-1:arr[st.peek()]);
+            st.push(i);
+        }
+       // Collections.reverse(nse);
+        return nse;
+        
+    }
+}

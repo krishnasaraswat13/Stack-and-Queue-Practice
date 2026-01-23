@@ -1,0 +1,35 @@
+class Solution {
+    public int sumSubarrayMins(int[] arr) {
+        long mod=1000000007;
+       int n=arr.length;
+        Stack<Integer> st=new Stack<>();
+        ArrayList<Integer> pse=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            while(!st.isEmpty() && arr[st.peek()]>arr[i]){
+                st.pop();
+            }
+            pse.add(st.isEmpty()?-1:st.peek());
+            st.push(i);
+        }
+        while(!st.isEmpty()){
+            st.pop();
+        }
+        ArrayList<Integer> nse=new ArrayList<>();
+        for(int i=n-1;i>=0;i--){
+            while(!st.isEmpty() && arr[st.peek()]>=arr[i]){
+                st.pop();
+            }
+            nse.add(st.isEmpty()?n:st.peek());
+            st.push(i);
+        }
+        Collections.reverse(nse);
+        long ans = 0;
+        for (int i = 0; i < n; i++) {
+            int left=i-pse.get(i);
+            int right=nse.get(i)-i;
+            ans = (ans + (long)arr[i] * left * right) % mod;
+        }
+
+        return (int)ans;
+    }
+}

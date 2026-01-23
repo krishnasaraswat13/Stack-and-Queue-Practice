@@ -1,0 +1,22 @@
+class Solution {
+    public int largestRectangleArea(int[] heights) {
+        int maxArea=0;
+        Stack<Integer> stack=new Stack<>();
+        for(int i=0;i<heights.length;i++){
+            while(!stack.isEmpty() && heights[stack.peek()]>heights[i]){ //jb tk height bhad rhi hai badhate rho or jaise hi ghatne lge to aare combination banake dekho ki konse me max hai or uske baad y tb tk chalega jb tk h[i] <peek se or jaise hi peek or bhi chota aa jae tbhi aage bhad jana fir last me jb ye loop khtm hoga to all incrreasing bachenge to us time hum last baar or iteration krenge max ke liye
+                int element=stack.pop();
+                int nse=i;
+                int pse=stack.isEmpty()? -1:stack.peek();
+                maxArea=Math.max(maxArea,heights[element]*(nse-pse-1));
+            }
+            stack.push(i);
+        }
+        while(!stack.isEmpty()){
+            int nse=heights.length;
+            int element=stack.pop();
+            int pse=stack.isEmpty()? -1:stack.peek();
+            maxArea=Math.max(maxArea,heights[element]*(nse-pse-1));
+        }
+        return maxArea;
+    }
+}

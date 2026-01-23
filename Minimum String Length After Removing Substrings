@@ -1,0 +1,25 @@
+class Solution {
+    public int minLength(String st) {
+        Stack<Character> s=new Stack<>();
+        int i=0;
+        while(i<st.length()){
+            if(s.isEmpty()){
+                s.push(st.charAt(i));
+                //i++;
+            }
+            else if(st.charAt(i)=='B' && s.peek()=='A'){
+                s.pop();
+                //i++;
+            }
+            else if(st.charAt(i)=='D' && s.peek()=='C'){
+                s.pop();
+               //
+            }
+            else{
+                s.push(st.charAt(i));
+            }
+            i++;
+        }
+        return s.size();
+    }
+}
